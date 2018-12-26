@@ -1,0 +1,64 @@
+Solidity Basics
+
+Stack too deep error:
+contract Test {
+    
+    
+    //compilation and execution success - 16 input parameters
+    function set(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,uint256 a16) public {
+    }
+    
+    //stack to deep error - 17 input parameters
+    //function set1(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    //uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,uint256 a16, uint256 a17) public {
+    //}
+    
+    //stack to deep error - due to 16 input params plus 1 function variable
+    //function set2(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    //uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,uint256 a16) public {
+        //uint256 zz = a1;
+    //}
+    
+    //compilation error memeory can not used with basic data types like uint
+    //function set3(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    //uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,uint256 a16) public {
+        //uint256 memory zz = a1;
+    //}  
+    
+    struct myStruct{
+        uint256 myParam;
+    }
+    
+    myStruct myStorageStruct;
+    
+    //No compilation error
+    function set4(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,uint256 a16) public {
+        uint256[] memory zz;
+        myStorageStruct = myStruct(34);
+    }   
+    
+    //compilation error stack too deep
+    function set5(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,int256 a16) public {
+        uint256[] memory zz;
+        //Here assignment causing stack too deep error
+        myStorageStruct = myStruct(a1);
+    }
+    
+    //No compilation error
+    function set6(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15,uint256 a16) public {
+        uint256[] memory zz;
+        myStruct memory myParam = myStruct(52);
+        
+    }    
+    
+    function set7(uint256 a1,uint256 a2, uint256 a3,uint256 a4,uint256 a5,uint256 a6,uint256 a7,
+    uint256 a8,uint256 a9,uint256 a10,uint256 a11,uint256 a12,uint256 a13,uint256 a14,uint256 a15) public returns (uint a18) {
+        uint256[] memory zz;
+        myStorageStruct = myStruct(12);
+    }    
+    
+}
